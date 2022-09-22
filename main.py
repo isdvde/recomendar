@@ -2,7 +2,7 @@ import pandas as pd
 from flask import Flask,request
 from flask import jsonify
 
-def get_recommendations(id):
+def obtener_recomendaciones(id):
   ordenes = pd.read_csv('ordenes.csv')
   ordenes_por_producto = ordenes[ordenes.id_producto == id].id_orden.unique()
 
@@ -26,10 +26,8 @@ def get_recommendations(id):
 app = Flask(__name__)
 @app.route("/recomendar/<int:id>", methods=["GET"])
 def recomendar(id):
-    #id = request.json['id']
-    #recomendaciones = obtenerRecomendaciones(id)
     print("id_producto: " + str(id))
-    return get_recommendations(id)
+    return obtener_recomendaciones(id)
  
 if __name__ == '__main__':
    app.run()
